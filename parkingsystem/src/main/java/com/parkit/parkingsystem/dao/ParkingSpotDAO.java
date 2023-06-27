@@ -27,7 +27,6 @@ public class ParkingSpotDAO {
             if (rs.next()) {
                 System.out.println(result);
                 result = rs.getInt(1);
-                ;
             }
             dataBaseConfig.closeResultSet(rs);
             dataBaseConfig.closePreparedStatement(ps);
