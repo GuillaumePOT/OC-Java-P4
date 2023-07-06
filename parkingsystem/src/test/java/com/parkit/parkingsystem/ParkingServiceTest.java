@@ -26,17 +26,17 @@ import static org.mockito.Mockito.*;
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class ParkingServiceTest {
     @InjectMocks
-    private  ParkingService parkingService;
+    private ParkingService parkingService;
 
     @Mock
-    private  InputReaderUtil inputReaderUtil;
+    private InputReaderUtil inputReaderUtil;
     @Mock
     private ParkingSpotDAO parkingSpotDAO;
     @Mock
     private TicketDAO ticketDAO;
 
     @BeforeEach
-    private void setUpPerTest() {
+    public void setUpPerTest() {
         try {
 
             when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
@@ -76,7 +76,7 @@ public class ParkingServiceTest {
         when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(false);
         when(parkingSpotDAO.updateParking(any(ParkingSpot.class))).thenReturn(true);
         parkingService.processExitingVehicle();
-        verify(parkingSpotDAO,Mockito.times(0)).updateParking(any(ParkingSpot.class));
+        verify(parkingSpotDAO, Mockito.times(0)).updateParking(any(ParkingSpot.class));
 
     }
 
@@ -95,8 +95,9 @@ public class ParkingServiceTest {
         ParkingSpot parkingSpot = parkingService.getNextParkingNumberIfAvailable();
         Assertions.assertNull(parkingSpot);
     }
+
     @Test
-    public void testGetNextParkingNumberIfAvailableParkingNumberWrongArgument(){
+    public void testGetNextParkingNumberIfAvailableParkingNumberWrongArgument() {
         when(inputReaderUtil.readSelection()).thenReturn(3);
         ParkingSpot parkingSpot = parkingService.getNextParkingNumberIfAvailable();
         Assertions.assertNull(parkingSpot);

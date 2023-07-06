@@ -84,7 +84,7 @@ public class ParkingDataBaseIT {
         parkingService.processExitingVehicle();
         ticket = ticketDAO.getTicket("ABCDEF");
         // check that the fare generated and out time are populated correctly in the database
-        assertEquals(Fare.CAR_RATE_PER_HOUR, ticket.getPrice(),0.01);
+        assertEquals(Fare.CAR_RATE_PER_HOUR, ticket.getPrice(), 0.01);
         assertFalse(ticket.getParkingSpot().isAvailable());
     }
 
@@ -107,9 +107,9 @@ public class ParkingDataBaseIT {
         parkingService.processExitingVehicle();
         Ticket ticket = ticketDAO.getTicket("ABCDEF");
         ticket.setOutTime(Date.from(LocalDateTime.now().plusHours(1).atZone(ZoneId.systemDefault()).toInstant()));
-        fareCalculatorService.calculateFare(ticket,true);
+        fareCalculatorService.calculateFare(ticket, true);
         ticketDAO.updateTicket(ticket);
-        assertEquals(0,oldTicket.getPrice());
-        assertEquals(0.95 * Fare.CAR_RATE_PER_HOUR,ticket.getPrice(),0.001);
+        assertEquals(0, oldTicket.getPrice());
+        assertEquals(0.95 * Fare.CAR_RATE_PER_HOUR, ticket.getPrice(), 0.001);
     }
 }
